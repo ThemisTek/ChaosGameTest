@@ -5,12 +5,18 @@ import cv2
 N = 1000
 
 triAn = Schemes.Triangle(
-    Schemes.Point(10,700),
-    Schemes.Point(1000,700),
-    Schemes.Point(500,100)
+    Schemes.Point(200,700),
+    Schemes.Point(300,700),
+    Schemes.Point(300,200)
 )
 
-currentPoint = triAn.a.Copy()
+trianB = Schemes.Triangle(
+    Schemes.Point(10,700),
+    Schemes.Point(100,700),
+    Schemes.Point(100,500),
+)
+
+currentPoint = trianB.a.Copy()
 
 width = 1024
 height = 768
@@ -20,7 +26,7 @@ cv2.imshow('image',im)
 
 i = 0
 
-weights = np.array([10,1,1])
+weights = np.array([5,5,5,1,1,1])
 multNeeded = 1/np.sum(weights)
 weights = np.dot(weights,multNeeded)
 
@@ -31,7 +37,7 @@ while True:
         im = cv2.circle(im,(cordX,cordY),1,(255,255,255),-1)
 
         newChoice = np.random.choice(
-            [triAn.a,triAn.b,triAn.c],
+            [triAn.a,triAn.b,triAn.c,trianB.a,trianB.b,trianB.c],
             p=weights,
         )
 
